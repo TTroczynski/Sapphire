@@ -10,6 +10,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.BoundingBox
 import org.osmdroid.views.MapView
 import org.osmdroid.config.Configuration
+import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         map.zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
         map.isHorizontalMapRepetitionEnabled = false
         map.isVerticalMapRepetitionEnabled = false
-        map.tilesScaleFactor = 1.5F
+        map.tilesScaleFactor = 3.5F
 
         mapController = map.controller
         myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(this), map)
@@ -52,9 +53,11 @@ class MainActivity : AppCompatActivity() {
         myLocationOverlay.enableFollowLocation()
         myLocationOverlay.isDrawAccuracyEnabled = true
         myLocationOverlay.runOnFirstFix{runOnUiThread {
-            mapController.animateTo(myLocationOverlay.myLocation)
-            mapController.setZoom(14)
+
         }}
+        mapController.animateTo(GeoPoint(43.339994, -80.340217))
+        mapController.setCenter(GeoPoint(43.339994, -80.340217))
+        mapController.setZoom(17)
         map.overlays.add(myLocationOverlay)
     }
 
